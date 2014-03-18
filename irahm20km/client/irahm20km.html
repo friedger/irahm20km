@@ -1,0 +1,105 @@
+<head>
+</head>
+
+<body>  
+    {{> container}}
+</body>
+
+<template name="container">
+  {{#if showConfirmDialog}}
+    {{> confirmDialog}}
+  {{/if}}
+  
+<div class="container">
+<div class="row">
+	<div class="span11">
+  		<h1><a href="#">{{mf 'app_title' 'IRAHM 20km Bruxelles - Collect de fonds'}}</a></h1>
+  	</div>
+  	<div class="span1">{{loginButtons align="right"}}</div>
+  </div>
+  {{> explain}}  
+  {{> contributions}}
+  {{social-share '["facebook", "twitter"]'}}
+
+</div>  
+</template>
+
+<template name="explain">
+  <div class="row">
+      <div class="span1"> </div>
+		<div class="span8">
+			{{#mf KEY='goal'}}
+			Pour 120 enfants handicapé de l'institute rensenginment on courrit 20km pour collecter
+			de fonds pour acheter de materiel.
+			{{/mf}}
+		</div>
+		<div class="span3"> {{> donate}} </div>
+	</div>  
+</template>
+
+<template name="donate">	
+	   <input type="text" class="amount" placeholder="5.00"/>
+      <input type="button" class="donate" value="{{mf 'donate' 'Donate'}}"/>   
+</template>
+
+<template name="contributions">
+<div class="row">
+<div class="span1"> </div>
+<div class="span10">
+	{{#if loading}}
+        Loading...
+      {{else}}
+        Total {{prettifyMoney total.amount}} of {{prettifyMoney 1000}}
+        <div class="bar" width="{{total.amount}}%"></div>        
+        <table class="table .table-stripped" >
+        <thead>
+        <tr> 
+        <th>{{mf 'name' 'Name'}}</th>
+        <th>{{mf 'amount' 'Amount'}}</th>
+        <th>{{mf 'date' 'Date'}}</th>
+        </tr>
+        </thead>
+        <tbody>         
+          {{#each contributions}}
+            {{> contribution_item}}
+          {{/each}}
+        </tbody>
+       </table>
+      {{/if}}
+
+</div>
+<div class="span1"> </div>
+<div class="row">
+</template>
+
+<template name="contribution_item">
+<tr>
+<td>{{name}}</td>
+<td>{{prettifyMoney amount}}</td>
+<td>{{prettifyDate createdAt}}</td>
+</tr>
+</template>
+
+
+<template name="confirmDialog">
+  <div class="mask"> </div>
+  <div class="modal">
+    <div class="modal-header">
+      <button type="button" class="close done">&times;</button>
+      <h3>{{mf 'confirm' 'Confirm'}}</h3>
+    </div>
+
+    <div class="modal-body">
+		Confirm that you would like to donate 
+		<div class="text-center">{{prettifyMoney amount}}</div> to IRAHM asbl.
+		<div>Please pay this amount to bank account below:</div>
+		<div class="text-center">BE93 0013 8465 2667</div>
+		with reference <b>Don 20 kms</b>
+    </div>
+
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary confirm">Confirm</a>
+    </div>
+  </div>
+</template>
+

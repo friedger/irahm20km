@@ -1,0 +1,44 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "iron-router": {},
+      "bootstrap-themes": {},
+      "ms-seo": {},
+      "social-share": {},
+      "messageformat": {}
+    },
+    "packages": {
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.6.4",
+        "commit": "927bbaed1b87894fb6fb70807f74ff3a5bd89f29"
+      },
+      "bootstrap-themes": {
+        "git": "https://github.com/eprochasson/meteor-bootstrap-themes",
+        "tag": "v0.0.5",
+        "commit": "7b711bd22646db199662bc05fea1df6ad5cc4c22"
+      },
+      "ms-seo": {
+        "git": "https://github.com/DerMambo/ms-seo",
+        "tag": "v0.2.2",
+        "commit": "bfe49316e0a12a23828c34db8cb36f853620aef8"
+      },
+      "social-share": {
+        "git": "https://github.com/andi-bute/social-share-meteor.git",
+        "tag": "v0.0.1",
+        "commit": "79d9577dc28f8c5251cf85aa0bb5cfd2a3bcdd52"
+      },
+      "messageformat": {
+        "git": "https://github.com/gadicohen/meteor-messageformat.git",
+        "tag": "v0.0.23",
+        "commit": "2ff90c8272e505178aad9bc91d85947fff22bea2"
+      },
+      "headers": {
+        "git": "https://github.com/gadicohen/meteor-headers.git",
+        "tag": "v0.0.15",
+        "commit": "0852ea4df6b1314914c4355160d0b0fd61675aea"
+      }
+    }
+  }
+}
