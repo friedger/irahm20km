@@ -19,9 +19,20 @@ var openConfirmDialog = function (amount) {
   Session.set("amount", amount);
 };
 
+var userLoginDialog = function () {
+  Session.set("showUserDialog", true);  
+};
+
+
 Template.container.showConfirmDialog = function () {
   return Session.get("showConfirmDialog");
 };
+
+
+Template.container.showUserDialog = function () {
+  return Session.get("showConfirmDialog");
+};
+
 
 Template.confirmDialog.events({
   'click .confirm': function (event, template) {
