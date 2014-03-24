@@ -6,7 +6,8 @@
       "bootstrap-themes": {},
       "ms-seo": {},
       "social-share": {},
-      "messageformat": {}
+      "messageformat": {},
+      "handlebars-server": {}
     },
     "packages": {
       "iron-router": {
@@ -21,8 +22,8 @@
       },
       "ms-seo": {
         "git": "https://github.com/DerMambo/ms-seo",
-        "tag": "v0.2.2",
-        "commit": "bfe49316e0a12a23828c34db8cb36f853620aef8"
+        "tag": "v0.2.5",
+        "commit": "ee04a070b353690260d8df1866d2798846dba55e"
       },
       "social-share": {
         "git": "https://github.com/andi-bute/social-share-meteor.git",
@@ -31,8 +32,13 @@
       },
       "messageformat": {
         "git": "https://github.com/gadicohen/meteor-messageformat.git",
-        "tag": "v0.0.23",
-        "commit": "2ff90c8272e505178aad9bc91d85947fff22bea2"
+        "tag": "v0.0.25",
+        "commit": "505a1da213801656c59d96893e65b61b94bc269d"
+      },
+      "handlebars-server": {
+        "git": "https://github.com/EventedMind/meteor-handlebars-server.git",
+        "tag": "v1.2.0",
+        "commit": "1b72c4e9d82af66293e50be4516c487d15d97464"
       },
       "headers": {
         "git": "https://github.com/gadicohen/meteor-headers.git",

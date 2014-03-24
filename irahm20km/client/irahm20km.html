@@ -10,42 +10,49 @@
     {{> confirmDialog}}
   {{/if}}
   
-<div class="container">
+<div class="container app-width">
 	<div class="row">
 		<div class="span12">
 		  	<div class="pull-right">{{loginButtons align="right"}}</div>
 		</div>
 	</div>
 	<div class="row">
-    <div class="span1"><img src="irahm.jpg" width="80"/> <img src="absil.jpg" /></div>
-	<div class="span11">
-  		<h1><a href="#">{{mf 'app_title' 'IRAHM 20km Bruxelles - Collect de fonds'}}</a></h1>
+   <div class="span1">
+   	<a href="http://irahm.be" target="_blank"><img src="irahm.jpg" width="80"/></a> 
+   	<a href="http://absil.eu" target="_blank"><img src="absil.jpg" /></a>
+   </div>
+	<div class="span7">
+  		<h1><a href="#">{{mf 'app_title' '20km IRAHM - Collect de fonds'}}</a></h1>
 	   {{> explain}}  
+	   
   	</div>
+  	<div class="span4"> {{> facebook}} {{> donate}}</div>
   </div>
   {{> contributions}}
-  {{social-share '["facebook", "twitter"]'}}
+  
 
 </div>  
 </template>
 
-<template name="explain">
-  <div class="row">
-      <div class="span1"> </div>
-		<div class="span8">
-			{{#mf KEY='goal'}}
-			Pour 120 enfants handicapé de l'institute rensenginment on courrit 20km pour collecter
-			de fonds pour acheter de materiel.
-			{{/mf}}
-		</div>
-		<div class="span3"> {{> donate}} </div>
-	</div>  
+<template name="donate">
+<h4>{{mf 'dontate' 'Faire un don'}}</h4>
+		<div class="form-horizontal">	
+	   	<input type="text" class="input-small amount" placeholder="5.00"/>
+      	<input type="button" class="donate" value="{{mf 'donate' 'Faire un don'}}"/>
+      </div>
+      
+      <div>{{mf 'bank_details' 'Relation bancaire:'}}</div>	
+      <div>BE93 0013 8465 2667</div>
+      <div>{{mf 'reference' 'Référence Don 20 kms'}}</div>
+      <div>{{mf 'tax' "(tout don au-dessus de 40€ permet d'avoir une déduction fiscale.)"}}</div>	   
 </template>
 
-<template name="donate">	
-	   <input type="text" class="amount" placeholder="5.00"/>
-      <input type="button" class="donate" value="{{mf 'donate' 'Donate'}}"/>   
+<template name="facebook">
+      <br/>
+		<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2F20kmIRAHM&amp;width&amp;height=290&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=true&amp;appId=1465700200328634" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:290px;" allowTransparency="true"></iframe>
+		<br/>
 </template>
+
 
 <template name="contributions">
 <div class="row">
@@ -54,13 +61,14 @@
 	{{#if loading}}
         Loading...
       {{else}}
-        Total {{prettifyMoney total.amount}} of {{prettifyMoney 1000}}
-        <div class="bar" width="{{total.amount}}%"></div>        
+        <h2>Contributions</h2>
+        <h4 class="text-center">{{mf 'total' 'Total'}} {{prettifyMoney total.amount}} {{mf 'of' 'de'}} {{prettifyMoney 1000}}</h4>
+                
         <table class="table .table-stripped" >
         <thead>
         <tr> 
-        <th>{{mf 'name' 'Name'}}</th>
-        <th>{{mf 'amount' 'Amount'}}</th>
+        <th>{{mf 'name' 'Nom'}}</th>
+        <th>{{mf 'amount' 'Somme'}}</th>
         <th>{{mf 'date' 'Date'}}</th>
         </tr>
         </thead>
@@ -70,10 +78,9 @@
           {{/each}}
         </tbody>
        </table>
-      {{/if}}
-
+      {{/if}}     
 </div>
-<div class="span1"> </div>
+<div class="span1"> </div>	
 <div class="row">
 </template>
 
@@ -91,19 +98,26 @@
   <div class="modal">
     <div class="modal-header">
       <button type="button" class="close done">&times;</button>
-      <h3>{{mf 'confirm' 'Confirm'}}</h3>
+      <h3>{{mf 'confirm' 'Valider'}}</h3>
     </div>
 
     <div class="modal-body">
-		Confirm that you would like to donate 
-		<div class="text-center">{{prettifyMoney amount}}</div> to IRAHM asbl.
-		<div>Please pay this amount to bank account below:</div>
+		{{mf 'confirm_body' 'En cliquant sur le bouton « valider», vous confirmez de faire un don de'}} 
+		<div class="text-center">{{prettifyMoney amount}}</div> {{mf 'to_irahm' 'à IRAHM asbl.'}}
+		<div>{{mf 'please_pay' 'Voulliez-vous virez la somme sur le compte au-dessous, s.v.p:'}}</div>
 		<div class="text-center">BE93 0013 8465 2667</div>
-		with reference <b>Don 20 kms</b>
+		{{mf 'with_ref' 'avec référence <b>Don 20 kms</b>'}}
+				
+		{{#unless loggedin}}
+			{{showLogin}}
+		{{/unless}}
+		
     </div>
 
     <div class="modal-footer">
-      <a href="#" class="btn btn-primary confirm">Confirm</a>
+      <a href="#" class="btn btn-primary {{#if loggedin}}confirm{{/if}} {{#unless loggedin}}disabled done{{/unless}}">
+	      {{#if loggedin}}{{mf 'confirm' 'Valider'}}{{else}}{{mf 'signin' 'Inscrire, s.v.p.'}}{{/if}}
+      </a>
     </div>
   </div>
 </template>

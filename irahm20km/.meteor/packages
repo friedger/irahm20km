@@ -4,7 +4,6 @@
 # but you can also edit it by hand.
 
 standard-app-packages
-insecure
 preserve-inputs
 iron-router
 less
@@ -13,9 +12,7 @@ ms-seo
 social-share
 messageformat
 accounts-password
-accounts-github
 accounts-facebook
-accounts-twitter
-accounts-google
-accounts-meetup
 accounts-ui
+email
+handlebars-server

@@ -1,1 +1,1 @@
-mfPkg.init('en');
+mfPkg.init('fr');

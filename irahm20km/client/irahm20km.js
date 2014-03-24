@@ -35,10 +35,10 @@ Template.container.showUserDialog = function () {
 
 
 Template.confirmDialog.events({
-  'click .confirm': function (event, template) {
+  'click .confirm': function (event, template) {  	
   	 var amount = Session.get("amount");
     Meteor.call("donate", {amount:Number(amount), public:true});
-    Session.set("showConfirmDialog", false);
+    Session.set("showConfirmDialog", false); 	
   },
   'click .done': function (event) {
     Session.set("showConfirmDialog", false);
@@ -54,13 +54,39 @@ Template.confirmDialog.amount = function(){
 		 
 }
 
+Template.confirmDialog.loggedin = function(){
+  return Meteor.user() != null;		 
+}
+
+Template.confirmDialog.hasemail = function(){
+  return Meteor.user() == null || Meteor.user().email != null;		 
+}
+
+Template.confirmDialog.showLogin = function(){
+	Accounts._loginButtonsSession.set('dropdownVisible', true);
+}
+
+
 Template.donate.events({
   'click .donate':
-    function (evt, template) {
-    	if (Meteor.user()){			
-    		amount = template.find(".amount"); 
-    		openConfirmDialog(amount.value)   		
-      }       
+    function (evt, template) {    			
+         decimalSeparator = Number("1.2").toLocaleString().substr(1,1);
+         
+    		amount = template.find(".amount");
+    		var aParts = amount.value.split(/[\.,]/);
+    		var decPart;
+    		var intPart;
+    		
+    		if (aParts.length > 1){
+    			intPart = aParts.slice(0,-1).join("")
+    			decPart = aParts[aParts.length - 1]; 
+    		} else {
+    			intPart = aParts[0]
+    			decPart = "";
+    		}
+    		decPart = decPart + "00".substr(0,2);
+    		value = Number(intPart + decimalSeparator + decPart);
+    		openConfirmDialog(value)   		      
     }  
   });
   
@@ -71,23 +97,21 @@ Handlebars.registerHelper("prettifyDate", function(timestamp) {
 });
 
 Handlebars.registerHelper("prettifyMoney", function(amount) {
-	 
-var decimalSeparator = Number("1.2").toLocaleString().substr(1,1);
+	var decimalSeparator = Number("1.2").toLocaleString().substr(1,1);
 
-var amountWithCommas = amount.toLocaleString();
-var arParts = String(amountWithCommas).split(decimalSeparator);
-var intPart = arParts[0];
-var decPart = (arParts.length > 1 ? arParts[1] : '');
-decPart = (decPart + '00').substr(0,2);
+	var amountWithCommas = amount.toLocaleString();
+	var arParts = String(amountWithCommas).split(decimalSeparator);
+	var intPart = arParts[0];
+	var decPart = (arParts.length > 1 ? arParts[1] : '');
+	decPart = (decPart + '00').substr(0,2);
 
-return intPart + decimalSeparator + decPart + " €";
+	return intPart + decimalSeparator + decPart + " €";
 });
 
 
 Accounts.ui.config({
   requestPermissions: {
-    facebook: ['user_likes'],
-    github: ['user']
+    facebook: ['user_likes', 'email']
   },
   requestOfflineToken: {
     google: true

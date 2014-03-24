@@ -4,6 +4,7 @@
     "bootstrap-themes": {},
     "ms-seo": {},
     "social-share": {},
-    "messageformat": {}
+    "messageformat": {},
+    "handlebars-server": {}
   }
 }

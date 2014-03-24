@@ -62,6 +62,9 @@ donate = function (options) {
   return id;
 };
 
+if (Meteor.isServer){
+
+
 Meteor.methods({
   // options should include: amount, public
   donate: function (options) {
@@ -77,7 +80,11 @@ Meteor.methods({
       throw new Meteor.Error(403, "You must be logged in");
 
     if (Meteor.user() && !!options.public){
-    	name = Meteor.user().username;
+    	if (Meteor.user().username){
+    		name = Meteor.user().username;
+      } else if (Meteor.user().profile) {
+      	name = Meteor.user().profile.name;
+      }
     } else {
     	name = "*****";
     }
@@ -91,9 +98,30 @@ Meteor.methods({
       createdAt: new Date().valueOf(),   
       public: !! options.public,
     });
+    
+    var emailTo;
+    if (Meteor.user().emails && Meteor.user().emails.length > 0){
+    	emailTo = Meteor.user().emails[0].address
+    } else if (Meteor.user().services.facebook){
+    	emailTo = Meteor.user().services.facebook.email;
+    }
+
+	 Meteor._debug(emailTo);
+	    	    
+ 	 Email.send({
+      to: emailTo,      
+      from: 'therapies@irahm.be',
+      subject: mf('email_subject', null, 'Merci pour votre don a IRAHM asbl.'),
+      html: Handlebars.templates['email']({amount:options.amount})
+    });
+
+    this.unblock();
+    
     return id;
   }
 });
+}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
