@@ -37,7 +37,7 @@ mfPkg.addNative(
   },
   "app_title": {
     "key": "app_title",
-    "text": "20km IRAHM - Collect de fonds",
+    "text": "20km IRAHM - Collecte de fonds",
     "file": "./client/irahm20km.html",
     "line": 25,
     "template": "container",
