@@ -64,6 +64,7 @@ donate = function (options) {
 
 if (Meteor.isServer){
 
+btcAddress = "1MATdc1Xjen4GUYMhZW5nPxbou24bnWY1v";
 
 Meteor.methods({
   // options should include: amount, public
@@ -118,9 +119,33 @@ Meteor.methods({
     this.unblock();
     
     return id;
-  }
+  },
+  bitcoin: function(options) {
+    check(options, {
+      amount: Number
+    });
+  	  		
+  		
+  var amountValue = options.amount;  
+  var contributionId = Random.id();
+  var callbackUrl = "http://20kmirahm.meteor.com/cb?id=" + contributionId;
+  Meteor._debug ("callback: " + callbackUrl);
+  
+  var params = {params:{value:options.amount, currency:"EUR"}};
+	var btcValue = HTTP.get("https://blockchain.info/tobtc",
+    		params);  	  
+
+   var result = HTTP.get("https://blockchain.info/api/receive",
+  	 		{params:{method:"create", address:btcAddress, 
+  	 				callback:callbackUrl}});
+  	Meteor._debug(result.content);
+	var resultObj = EJSON.parse(result.content);  	 				
+
+   return {amountBtc:btcValue.content, btcAddress:resultObj.input_address};  	 				
+}
 });
 }
+
 
 
 

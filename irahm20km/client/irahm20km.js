@@ -16,7 +16,18 @@ Template.contributions.mytotal = function () {
 
 var openConfirmDialog = function (amount) {
   Session.set("showConfirmDialog", true);
+  if (amount == 0){
+	  	amount = 5.00;
+  }  
   Session.set("amount", amount);
+  
+  Meteor.call("bitcoin", {amount:Number(amount)},
+  	function(error, result){
+  		if (result){  			
+  			Session.set("amountBtc", result.amountBtc);
+  			Session.set("btcAddress", result.btcAddress);
+  			}
+  		}); 	   	 
 };
 
 var userLoginDialog = function () {
@@ -31,6 +42,14 @@ Template.container.showConfirmDialog = function () {
 
 Template.container.showUserDialog = function () {
   return Session.get("showConfirmDialog");
+};
+
+Template.confirmDialog.amountBtc = function () {
+  return Session.get("amountBtc");
+};
+
+Template.confirmDialog.btcAddress = function () {
+  return Session.get("btcAddress");
 };
 
 

@@ -115,7 +115,12 @@
 		{{#unless loggedin}}
 			{{showLogin}}
 		{{/unless}}
-		
+
+		<div>		
+			
+			Voulliez-vous virez {{amountBtc}} BTC sur le bitcoin compte {{btcAddress}}
+			<img src="http://bitcoinqrcode.info/qr.php?size=3&info=bitcoin%3A{{brcAddress}}%3Famount%3D{{amountBtc}}%26"/>
+		</div>
     </div>
 
     <div class="modal-footer">
